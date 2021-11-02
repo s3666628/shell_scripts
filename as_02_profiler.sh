@@ -5,8 +5,10 @@
 # References
 # https://www.cyberciti.biz/faq/linux-find-out-raspberry-pi-gpu-and-arm-cpu-temperature-command/
 
-# configuration paths
+# configuration
 CPU_TEMP_PATH=/sys/class/thermal/thermal_zone0/temp
+HZ_GHZ=100000000
+TEMP_CONVERT=1000
 
 echo "Running Profiler Script"
 
@@ -33,12 +35,13 @@ check_temp_infor(){
 # if process is running then collect data
 echo "Outputting CPU / GPU Temp information"
 cpu=$(<$CPU_TEMP_PATH)
-echo "CPU TEMP: $((cpu/1000)) c"
+printf "CPU TEMP: %0.2f\n" $((cpu/$TEMP_CONVERT))
 gpu=$(vcgencmd measure_temp)
-echo "GPU TEMP: $gpu"
+trim_gpu=${gpu:5:8}
+echo "GPU TEMP: $trim_gpu" | tr -d "temp=C'"
 freq=$(vcgencmd measure_clock arm)
-echo "CPU Freq: $freq"
-
+trim_freq=${freq:14}
+printf "CPU FREQ: %0.2f\n" $(($trim_freq/$HZ_GHZ))
 }
 
 check_memory_info(){
@@ -47,11 +50,20 @@ echo "Outputing memory information"
 free
 echo
 }
+check_mpstat_info(){
+# outputs information on CPU useage
+echo "Outputing CPU information"
+mpstat > output_mpstat.txt
+echo
+}
 
 # Execution Starts Here
 check_process_running $1
 check_memory_info
 check_temp_infor
+check_mpstat_info
+
+awk < output_mpstat.txt '{ if (NR>1) {print $2, $3, $4, $5 }}'
 
 
 
