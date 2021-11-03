@@ -9,7 +9,7 @@
 CPU_TEMP_PATH=/sys/class/thermal/thermal_zone0/temp
 HZ_GHZ=100000000
 TEMP_CONVERT=1000
-
+SECOND=0
 echo "Running Profiler Script"
 
 # check whether the proces is running
@@ -47,7 +47,7 @@ printf "CPU FREQ: %0.2f\n" $(($trim_freq/$HZ_GHZ))
 check_memory_info(){
 # outputs information on memory useage
 echo "Outputing memory information"
-free
+free -ght > output_free.txt
 echo
 }
 check_mpstat_info(){
@@ -59,11 +59,15 @@ echo
 
 # Execution Starts Here
 check_process_running $1
+echo SECOND: $SECOND
 check_memory_info
 check_temp_infor
 check_mpstat_info
 
 awk < output_mpstat.txt '{ if (NR>1) {print $2, $3, $4, $5 }}'
+echo "MEMORY OUTPUT"
+#awk < output_free.txt '{print $2, $3, $4}'
+awk '{if(length($7) > 0) {printf "MEM FREE: %.2f\n", $7}}' output_free.txt | sed s/Gi//
 
 
 
