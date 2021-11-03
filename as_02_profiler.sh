@@ -10,6 +10,8 @@ CPU_TEMP_PATH=/sys/class/thermal/thermal_zone0/temp
 HZ_GHZ=100000000
 TEMP_CONVERT=1000
 SECOND=0
+CPU_MAX_USE=100
+ZERO=0
 echo "Running Profiler Script"
 
 # check whether the proces is running
@@ -21,6 +23,7 @@ process=$(pgrep $1)
 if [[ -n $process ]]
 then
 	echo "The process for the program: $1 is running, the process_id: $process"
+	echo
 	
 	return 0
 else
@@ -33,12 +36,12 @@ else
 
 check_temp_infor(){
 # if process is running then collect data
-echo "Outputting CPU / GPU Temp information"
+#echo "Outputting CPU / GPU Temp information"
 cpu=$(<$CPU_TEMP_PATH)
 printf "CPU TEMP: %0.2f\n" $((cpu/$TEMP_CONVERT))
 gpu=$(vcgencmd measure_temp)
 trim_gpu=${gpu:5:8}
-echo "GPU TEMP: $trim_gpu" | tr -d "temp=C'"
+echo "GPU TEMP: $trim_gpu$ZERO" | tr -d "temp=C'"
 freq=$(vcgencmd measure_clock arm)
 trim_freq=${freq:14}
 printf "CPU FREQ: %0.2f\n" $(($trim_freq/$HZ_GHZ))
@@ -46,15 +49,14 @@ printf "CPU FREQ: %0.2f\n" $(($trim_freq/$HZ_GHZ))
 
 check_memory_info(){
 # outputs information on memory useage
-echo "Outputing memory information"
+#echo "Outputing memory information"
 free -ght > output_free.txt
 echo
 }
 check_mpstat_info(){
 # outputs information on CPU useage
-echo "Outputing CPU information"
-mpstat > output_mpstat.txt
-echo
+#echo "Outputing CPU information"
+mpstat -u > output_mpstat.txt
 }
 
 # Execution Starts Here
@@ -63,11 +65,12 @@ echo SECOND: $SECOND
 check_memory_info
 check_temp_infor
 check_mpstat_info
-
-awk < output_mpstat.txt '{ if (NR>1) {print $2, $3, $4, $5 }}'
-echo "MEMORY OUTPUT"
+#echo "CPU OUTPUT"
+#awk < output_mpstat.txt '{ if (NR>3) {print $13 }}'
+awk '{if(length($13) > 0 && (NR==4)) {printf "CPU USE: %.2f percent\n", 100-$13 }}' output_mpstat.txt
+#echo "MEMORY OUTPUT"
 #awk < output_free.txt '{print $2, $3, $4}'
-awk '{if(length($7) > 0) {printf "MEM FREE: %.2f\n", $7}}' output_free.txt | sed s/Gi//
+awk '{if(length($7) > 0) {printf "MEM FREE: %.2f GBs\n", $7}}' output_free.txt | sed s/Gi//
 
 
 

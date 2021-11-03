@@ -1,4 +1,4 @@
-Linux 5.10.75-v7l_s3666628-g6cfe1a8b600a (raspberrypi) 	11/03/2021 	_armv7l_	(4 CPU)
+Linux 5.10.75-v7l_s3666628-g6cfe1a8b600a (raspberrypi) 	11/04/2021 	_armv7l_	(4 CPU)
 
-08:39:55 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
-08:39:55 PM  all    1.88    0.00    1.54    0.03    0.00    0.01    0.00    0.00    0.00   96.55
+08:55:46 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+08:55:46 AM  all    1.94    0.00    1.56    0.02    0.00    0.01    0.00    0.00    0.00   96.46
