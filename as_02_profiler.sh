@@ -26,7 +26,8 @@ AWK=/usr/bin/awk
 # start of actual code
 $ECHO
 $ECHO "Running Profiler Script"
-
+$ECHO "Deleting previous output "
+rm -rf $OUTPUT_FILE
 
 
 # check whether the proces is running
@@ -57,7 +58,8 @@ $PRINTF "%0.2f, " $((cpu/$TEMP_CONVERT)) >> $OUTPUT_FILE
 gpu=$(vcgencmd measure_temp)
 trim_gpu=${gpu:5:8}
 $ECHO "GPU TEMP: $trim_gpu$ZERO" | tr -d "temp=C'"
-$ECHO "$trim_gpu$ZERO, " | tr -d "temp=C'" >> $OUTPUT_FILE
+#$ECHO "$trim_gpu$ZERO, " | tr -d "temp=C'" >> $OUTPUT_FILE # change to printf
+printf "$trim_gpu$ZERO, " | tr -d "temp=C'" >> $OUTPUT_FILE # change to printf
 freq=$(vcgencmd measure_clock arm)
 trim_freq=${freq:14}
 $PRINTF "CPU FREQ: %0.2f\n" $(($trim_freq/$HZ_GHZ))
@@ -80,7 +82,7 @@ END_SCRIPT=1
 }
 
 ouput_files_headers(){
-$ECHO "SECS, CPU_T, GPU_T, CPU_F, MEM_F" >> $OUTPUT_FILE
+$ECHO "SECOND, CPU_TMP, GPU_TMP, CPU_FRQ, MEM_USE, CPU_USE" >> $OUTPUT_FILE
 
 }
 
@@ -93,18 +95,19 @@ check_process_running $1
 ouput_files_headers
 while [[ $END_SCRIPT -eq 0 ]]; do
 $ECHO SECOND: $SECOND
-$ECHO $SECOND >> $OUTPUT_FILE
+printf "$SECOND, " >> $OUTPUT_FILE
 check_memory_info
 check_temp_infor
 check_mpstat_info
 # format the output information of $MPSTAT and $FREE
 
-$AWK '{if(length($13) > 0 && (NR==4)) {printf "%.2f,", 100-$13 }}' output_mpstat.txt >> $OUTPUT_FILE
-$AWK '{if(length($7) > 0) {printf "%.2f, ", $7}}' output_free.txt | sed s/Gi// >> $OUTPUT_FILE
+$AWK '{if(length($13) > 0 && (NR==4)) {printf "%.2f, ", 100-$13 }}' output_mpstat.txt >> $OUTPUT_FILE
+$AWK '{if(length($7) > 0) {printf "%.2f ", $7}}' output_free.txt | sed s/Gi// >> $OUTPUT_FILE
 $AWK '{if(length($13) > 0 && (NR==4)) {printf "CPU USE: %.2f percent\n", 100-$13 }}' output_mpstat.txt
 $AWK '{if(length($7) > 0) {printf "MEM FREE: %.2f GBs\n", $7}}' output_free.txt | sed s/Gi//
 SECOND=$((SECOND+1))
 $ECHO 
+$ECHO >> $OUTPUT_FILE
 $ECHO "Process ID $$"
 trap end_script USR1
 sleep 3
