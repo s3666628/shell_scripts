@@ -1,0 +1,18 @@
+plot "output_results.txt" using 1:3 title "temperature" with lines lc rgb '#8b1a0e' lt 1 lw 2
+
+set datafile separator ","
+
+http://raspberrypi.tomasgreno.cz/plotting-graphs.html
+
+plot "output_results.txt" using ($1/500):3 title "temperature" with linespoint lc rgb '#8b1a0e' lt 3 lw 1
+
+to do
+=====
+
+see history for commands that have been typed in for gnuplot
+set the title and the labels for the x and y axis
+set the scale so graph looks a bit better
+
+
+plot "output_results.txt" using 1:2 title "CPU Temperature" with lines lc rgb 'black' lt 2 lw 2, "output_results.txt" using 1:3 title "GPU Temperature" with lines lc rgb "violet" lt 2 lw 2
+

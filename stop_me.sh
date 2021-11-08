@@ -4,7 +4,8 @@ tease(){
 	echo "ha ha"
 
 }
-trap tease SEGV 
+trap tease SEGV
+trap tease USR1
 while true ; do
 	echo you cannot stop me
 	sleep 1

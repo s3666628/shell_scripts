@@ -23,6 +23,7 @@ MPSTAT=/usr/bin/mpstat
 FREE=/usr/bin/free
 PRINTF=/usr/bin/printf
 AWK=/usr/bin/awk
+GNUPLOT=/usr/bin/gnuplot
 # start of actual code
 $ECHO
 $ECHO "Running Profiler Script"
@@ -82,7 +83,7 @@ END_SCRIPT=1
 }
 
 ouput_files_headers(){
-$ECHO "SECOND, CPU_TMP, GPU_TMP, CPU_FRQ, MEM_USE, CPU_USE" >> $OUTPUT_FILE
+$ECHO "#SECOND, CPU_TMP, GPU_TMP, CPU_FRQ, MEM_USE, CPU_USE" >> $OUTPUT_FILE
 
 }
 
@@ -110,8 +111,24 @@ $ECHO
 $ECHO >> $OUTPUT_FILE
 $ECHO "Process ID $$"
 trap end_script USR1
-sleep 3
+sleep 1
 done
+echo "Profiling has Ended: - Generating GNU Graphs"
+echo "Graphs generated to the same directory as this script: $PWD"
+echo "Genreated: Graph 1 - CPU / GPU Temp"
+$GNUPLOT cpu_temp_plot.gp
+echo "Genreated: Graph 2 - CPU Freqeuncy"
+$GNUPLOT cpu_freq_plot.gp
+echo "Genreated: Graph 3 - CPU Useage"
+$GNUPLOT cpu_use_plot.gp
+echo "Genreated: Graph 4 - Memory Available (RAM)"
+$GNUPLOT mem_free_plot.gp
+echo
+echo "Completed graph generation"
+
+
+
+
 
 
 
