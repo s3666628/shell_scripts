@@ -136,7 +136,7 @@ set ylabel "Temp in Celsius"
 set ylabel  font "" textcolor lt -1 rotate
 set y2label "" 
 set y2label  font "" textcolor lt -1 rotate
-set yrange [ 40.0000 : 60.0000 ] noreverse writeback
+set yrange [ 40.0000 : 100.0000 ] noreverse writeback
 set y2range [ * : * ] noreverse writeback
 set zlabel "" 
 set zlabel  font "" textcolor lt -1 norotate

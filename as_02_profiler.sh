@@ -35,6 +35,7 @@ rm -rf $OUTPUT_FILE
 # if the process is not running then no point in going further
 
 check_process_running(){
+# This function can be used if want to pass in the ID of the process that is being profiled
 $ECHO "Checking the process is running"
 process=$(pgrep $1)
 if [[ -n $process ]]
@@ -90,12 +91,17 @@ $ECHO "#SECOND, CPU_TMP, GPU_TMP, CPU_FRQ, MEM_USE, CPU_USE" >> $OUTPUT_FILE
 
 
 # Execution Starts Here
-check_process_running $1
+# have commented out the check_process_running as this is optional
+# check_process_running $1
 
 # start calling the functions
 ouput_files_headers
+$ECHO "Starting LED Script (this will run as background proces - can be terminated with kill -USR2 [process_id]"
+nohup ./as_02_profiler_led.sh &
+
 while [[ $END_SCRIPT -eq 0 ]]; do
 $ECHO SECOND: $SECOND
+
 printf "$SECOND, " >> $OUTPUT_FILE
 check_memory_info
 check_temp_infor
