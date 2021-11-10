@@ -1,0 +1,71 @@
+commit 059e10f7d16b520d93739849660c966a58eee557
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Wed Nov 10 09:50:02 2021 +1100
+
+    adding report and starting working on the led script
+
+commit b9cac73fa80cb195a3947ab49353984047f31046
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Mon Nov 8 19:50:23 2021 +1100
+
+    working graphs for each of the outputs
+
+commit dd4eeaf3b4320cebdd57d88a2681984e40ec19a0
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Sun Nov 7 11:22:43 2021 +1100
+
+    adding requirement 5 which is now working - outputs to file in csv format
+
+commit 16df641c4e7a87780303c41c1900e22f9dec22ce
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Fri Nov 5 20:09:52 2021 +1100
+
+    kill signal is now working
+
+commit 35a7b6f06f1c9f8a854dbc35cf791cf528378d0a
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Thu Nov 4 08:56:28 2021 +1100
+
+    more work on output formatting
+
+commit a531406a616f93ca88abec2856a6ee466ea99d5d
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Wed Nov 3 20:41:07 2021 +1100
+
+    Awk formatting output for memory
+
+commit 58a10546540acd3ef835898dfe603da1420bd00d
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Wed Nov 3 09:32:41 2021 +1100
+
+    adding more scripts for lab 10
+
+commit b3d197127175fe0e3812afd978ea5c5ecfddd73f
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Tue Nov 2 11:18:04 2021 +1100
+
+    changes to the formatting for the assingment
+
+commit 7f8042d62bd2354cfc3f51a2dc140aa65972197a
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Mon Nov 1 08:56:51 2021 +1100
+
+    adding cpu gpu temp and freq output
+
+commit 5e33ed3f7680a12c92d5fcbd4dd8c8940646c0c1
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Sun Oct 31 15:30:18 2021 +1100
+
+    adding first commit for profiler as02 script
+
+commit e3a62486e79949b9a5ee71c54a098945cb6d2321
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Sun Oct 31 09:38:38 2021 +1100
+
+    adding more lab test files from week 09
+
+commit fd74cfaab35c4f24c576bc88ff073f7a2063cebb
+Author: Philip Beeby <s3666628@student.rmit.edu.au>
+Date:   Sat Oct 30 18:17:33 2021 +1100
+
+    adding all of lab shell scripts to this point

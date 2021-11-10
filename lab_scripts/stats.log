@@ -1,0 +1,4 @@
+Linux 5.10.75-v7l_s3666628-g6cfe1a8b600a (raspberrypi) 	10/31/2021 	_armv7l_	(4 CPU)
+
+02:38:50 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+02:38:50 PM  all    1.73    0.00    0.86    0.08    0.00    0.02    0.00    0.00    0.00   97.30
