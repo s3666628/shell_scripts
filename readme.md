@@ -1,4 +1,4 @@
-# Report for Unix Admin: Assignment 02 - How Run the Profiler Script
+# Report for Unix Admin: Assignment 02 - How To Run the Profiler Script
 
 ### The Main Shell Script
 
